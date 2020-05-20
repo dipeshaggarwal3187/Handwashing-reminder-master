@@ -1,0 +1,48 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    viewBinding.enabled = true
+    compileSdkVersion 29
+
+    android.defaultConfig.vectorDrawables.useSupportLibrary = true
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        debug {
+            ext.enableCrashliytics = false
+            versionNameSuffix "-debug"
+            debuggable true
+        }
+        beta {
+            initWith(debug)
+            versionNameSuffix "-beta"
+            debuggable true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':app')
+
+    // https://github.com/AppIntro/AppIntro
+    implementation 'com.github.AppIntro:AppIntro:5.1.0'
+    // https://github.com/mikepenz/FastAdapter
+    implementation "com.mikepenz:fastadapter:${latestFastAdapterRelease}"
+}

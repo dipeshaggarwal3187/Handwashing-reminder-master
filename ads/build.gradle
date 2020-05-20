@@ -1,0 +1,36 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        beta {
+            initWith(debug)
+            proguardFiles 'proguard-rules.pro'
+        }
+        release {
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':app')
+
+    // https://firebase.google.com/docs/admob/android/quick-start#import_the_mobile_ads_sdk
+    implementation 'com.google.firebase:firebase-ads:19.1.0'
+}
+repositories {
+    mavenCentral()
+}
